@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from geo_service.users.routes import blueprint as users_blueprint
 from geo_service.sponsors.routes import blueprint as sponsors_blueprint
-from geo_service.scenarios.routes import blueprint as scenarios_blueprint
+from geo_service.scenarios.routes.route_scenario import blueprint as scenarios_blueprint
 import geo_service.exceptions as app_exception
 from flask_migrate import Migrate
 from . import db_connections
@@ -31,6 +31,6 @@ db = SQLAlchemy(app)
 
 from geo_service.users.models import User
 from geo_service.sponsors.models import Sponsor
-from geo_service.scenarios.models import Scenario
+from geo_service.scenarios.models.model_scenario import Scenario
 migrate = Migrate(app, db)
 # db.create_all()
