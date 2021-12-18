@@ -1,5 +1,5 @@
-from app.database import BaseModel
-from app import db
+from geo_service.database import BaseModel
+from geo_service import db
 
 
 class User(BaseModel):
