@@ -23,7 +23,7 @@ def register_error_handlers(app):
 app = Flask(__name__)
 register_blueprint(app)
 register_error_handlers(app)
-app.config.from_object('config.DevConfig')
+# app.config.from_object('config.DevConfig')
 db_connections.init_app(app)
 
 

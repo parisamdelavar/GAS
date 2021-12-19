@@ -18,5 +18,5 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(Config.BASE_DIR, 'app.db')
-    DATABASE = 'sqlite:///' + os.path.join(Config.BASE_DIR, 'app.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(Config.BASE_DIR, 'geo_service.db')
+    DATABASE = 'sqlite:///' + os.path.join(Config.BASE_DIR, 'geo_service.db')
