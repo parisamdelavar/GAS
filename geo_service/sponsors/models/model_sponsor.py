@@ -1,11 +1,11 @@
 from geo_service.database import BaseModel
 from geo_service import db
 from . import model_credit_type
-# import uuid
-#
-#
-# def generate_uuid():
-#     return str(uuid.uuid4())
+import uuid
+
+
+def generate_uuid():
+    return str(uuid.uuid4())
 
 
 class Sponsor(BaseModel):
@@ -13,7 +13,7 @@ class Sponsor(BaseModel):
     name = db.Column(db.String(60), nullable=False)
     email = db.Column(db.String(60), nullable=False)
     address = db.Column(db.String(200), nullable=True)
-    # public_id = db.Column(db.String, name="public_id", default=generate_uuid)
+    public_id = db.Column(db.String, name="public_id", default=generate_uuid)
     credit_type_id = db.Column(db.Integer, db.ForeignKey('credit_types.id'))
     credit_type = db.relationship('CreditType', back_populates='sponsors')
     credit_balance = db.relationship('CreditBalance', back_populates='sponsor')
