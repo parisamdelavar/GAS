@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from geo_service.extentions import db
 
 from geo_service.users.routes import blueprint as users_blueprint
 from geo_service.sponsors.routes.route_sponsor import blueprint as sponsors_blueprint
@@ -23,14 +23,14 @@ def register_error_handlers(app):
 app = Flask(__name__)
 register_blueprint(app)
 register_error_handlers(app)
-# app.config.from_object('config.DevConfig')
+app.config.from_object('config.DevConfig')
 db_connections.init_app(app)
 
 
-db = SQLAlchemy(app)
+db.init_app(app)
 
 from geo_service.users.models import User
 from geo_service.sponsors.models.model_sponsor import Sponsor
-from geo_service.scenarios.models.model_scenario import Scenario
+from geo_service.scenarios.models.model_scenario import Senario
 migrate = Migrate(app, db)
 # db.create_all()

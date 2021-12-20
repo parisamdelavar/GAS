@@ -1,5 +1,5 @@
 from geo_service.database import BaseModel
-from geo_service import db
+from geo_service.extentions import db
 
 
 class Notificatio_Type(BaseModel):

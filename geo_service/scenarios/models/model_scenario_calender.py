@@ -1,6 +1,6 @@
 from geo_service.database import BaseModel
-from geo_service import db
-from . import model_senario
+from geo_service.extentions import db
+from . import model_scenario
 
 
 class Scenario_Calender(BaseModel):
@@ -10,7 +10,7 @@ class Scenario_Calender(BaseModel):
     repeat = db.Column(db.String(20), nullable=False)
     from_time = db.Column(db.Time, nullable=False)
     to_time = db.Column(db.Time, nullable=False)
-    status = db.Column(db.Bit, nullable=False)
+    status = db.Column(db.Boolean, nullable=False)
     province = db.Column(db.String(60), nullable=True)
     scenario_id = db.Column(db.Integer, db.ForeignKey('scenarios.id'))
     sponsors = db.relationship('Scenario', back_populates='credit', lazy=True)

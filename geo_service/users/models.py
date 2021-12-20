@@ -20,9 +20,9 @@ class User(BaseModel):
 
 class UserRole(BaseModel):
     __tablename__ = 'user_roles'
-    user_id = db.Columndb(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', back_populates='user_roles', lazy=True)
-    role_id = db.Columndb(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
     role = db.relationship('Role', back_populates='role_users', lazy=True)
 
     def __repr__(self):
