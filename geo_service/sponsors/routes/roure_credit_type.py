@@ -10,24 +10,18 @@ from flask import current_app as app
 from geo_service.decorators import token_required
 
 
-blueprint = Blueprint('sponsors', __name__)
+blueprint = Blueprint('credit_type', __name__)
 
 
-@blueprint.route('/b')
-def b():
-    return 'b'
-
-
-@blueprint.route('/sponsor', methods=['POST'])
+@blueprint.route('/credittype', methods=['POST'])
 @token_required
-def create_user(current_user):
+def create_credit_type(current_user):
 
     data = request.get_json()
-    exist_sponsor = model_sponsor.Sponsor.query.filter_by(email=data["email"]).first()
+    exist_sponsor = model_sponsor.Sponsor.query.filter_by(name=data["name"]).first()
     if exist_sponsor:
-        return jsonify({'message': 'Sponsor is duplicate!'})
-    credit_type_default = model_credit_type.CreditType.query.filter_by(name='unlimited').first()
-    credit_type_default.sponsors = [model_sponsor.Sponsor(name=data['name'], email=data['email'])]
+        return jsonify({'message': 'Credit Type is duplicate!'})
+    credit_type_default = model_credit_type.CreditType(name=data['name'], description=data['description'])
     db.session.add(credit_type_default)
     db.session.commit()
-    return jsonify({'message': 'new sponsor created!'})
+    return jsonify({'message': 'new credit type created!'})

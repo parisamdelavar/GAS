@@ -7,6 +7,7 @@ import datetime
 from flask import current_app as app
 from geo_service.decorators import token_required
 
+
 blueprint = Blueprint('users', __name__)
 
 
@@ -54,9 +55,10 @@ def login():
         return make_response('Could not verufy', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
     if check_password_hash(user.password, auth.password):
         token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-        return jsonify({'token': token})
+        return jsonify({'token': token.decode()})
 
     return make_response('Could not verufy', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
 
 
 
