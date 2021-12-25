@@ -1,6 +1,7 @@
 from geo_service.database import BaseModel
 from geo_service import db
 from . import model_credit_type
+from geo_service.scenarios.models import model_scenario
 import uuid
 
 
@@ -17,6 +18,7 @@ class Sponsor(BaseModel):
     credit_type_id = db.Column(db.Integer, db.ForeignKey('credit_types.id'))
     credit_type = db.relationship('CreditType', back_populates='sponsors')
     credit_balance = db.relationship('CreditBalance', back_populates='sponsor')
+    scenario = db.relationship('scenario', back_populates='sponsor', lazy=True)
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id},{self.name}) '
