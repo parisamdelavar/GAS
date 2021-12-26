@@ -7,6 +7,7 @@ import datetime
 from flask import current_app as app
 from geo_service.decorators import token_required
 
+
 blueprint = Blueprint('users', __name__)
 
 
@@ -57,6 +58,7 @@ def login():
         return jsonify({'token': token.decode()})
 
     return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
 
 
 
