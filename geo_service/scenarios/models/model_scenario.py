@@ -1,7 +1,7 @@
 from geo_service.database import BaseModel
 from geo_service.extentions import db
 from geo_service.sponsors.models import model_sponsor
-from .modell_notification_type import Notificatio_Type
+from .modell_notification_type import Notification_Type
 from geo_service.scenarios.models import modell_notification_type, model_scenario_type, model_scenario_calender, model_location, model_ran_schedule, model_affected_user
 from geo_service.sponsors.models import model_sponsor
 import uuid
@@ -11,7 +11,7 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 
-class Senario(BaseModel):
+class Scenario(BaseModel):
     __tablename__ = 'scenarios'
     priority = db.Column(db.Integer, nullable=False)
     public_id = db.Column(db.String, name="public_id", default=generate_uuid)
@@ -26,16 +26,16 @@ class Senario(BaseModel):
     status = db.Column(db.Integer, nullable=False)
     delay = db.Column(db.BigInteger, nullable=False)
     location_limit = db.Column(db.Integer, nullable=False)
-    max_location = db.Column(db.Integer, nullable=False)
-    sponsor_id = db.Column(db.Integer, db.ForeignKey('sponsors.id'))
+    #max_location = db.Column(db.Integer, nullable=False)
+    sponsor_id = db.Column(db.Integer, db.ForeignKey('sponsors.public_id'))
     notification_type_id = db.Column(db.Integer, db.ForeignKey('notification_types.id'))
     scenario_type_id = db.Column(db.Integer, db.ForeignKey('scenario_types.id'))
-    sponsor = db.relationship('sponsor', back_populates='scenario')
-    location = db.relationship('location', back_populates='scenario', lazy=True)
-    scenario_calender = db.relationship('scenario_calender', back_populates='scenario', lazy=True)
-    scenario_type = db.relationship('scenario_type', back_populates='scenario')
-    notification_type = db.relationship('notification_type', back_populates='scenario')
-    ran_schedules = db.relationship('ran_schedule', back_populates='scenario', lazy=True)
+    sponsor = db.relationship('Sponsor', back_populates='scenario')
+    location = db.relationship('Location', back_populates='scenario', lazy=True)
+    scenario_calender = db.relationship('Scenario_Calender', back_populates='scenario', lazy=True)
+    scenario_type = db.relationship('Scenario_Type', back_populates='scenario')
+    notification_type = db.relationship('Notification_Type', back_populates='scenario')
+    ran_schedules = db.relationship('Ran_Schedule', back_populates='scenario', lazy=True)
 
 
     def __repr__(self):

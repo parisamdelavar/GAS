@@ -9,7 +9,7 @@ class Affected_User(BaseModel):
     Message = db.Column(db.String(200), nullable=False)
     status = db.Column(db.Integer, nullable=False)
     ran_scenario_id = db.Column(db.Integer, db.ForeignKey('ran_schedules.id'))
-    ran_schedule = db.relationship('ran_schedule', back_populates='affected_user')
+    ran_schedule = db.relationship('Ran_Schedule', back_populates='affected_user')
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id},{self.name}) '

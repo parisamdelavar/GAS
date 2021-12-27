@@ -13,7 +13,7 @@ class Scenario_Calender(BaseModel):
     status = db.Column(db.Boolean, nullable=False)
     province = db.Column(db.String(60), nullable=True)
     scenario_id = db.Column(db.Integer, db.ForeignKey('scenarios.id'))
-    sponsors = db.relationship('scenario', back_populates='scenario_calender')
+    scenario = db.relationship('Scenario', back_populates='scenario_calender')
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id},{self.name}) '

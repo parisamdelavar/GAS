@@ -16,9 +16,9 @@ class Sponsor(BaseModel):
     address = db.Column(db.String(200), nullable=True)
     public_id = db.Column(db.String, name="public_id", default=generate_uuid)
     credit_type_id = db.Column(db.Integer, db.ForeignKey('credit_types.id'))
-    credit_type = db.relationship('CreditType', back_populates='sponsors')
+    credit_type = db.relationship('CreditType', back_populates='Sponsor')
     credit_balance = db.relationship('CreditBalance', back_populates='sponsor')
-    scenario = db.relationship('scenario', back_populates='sponsor', lazy=True)
+    scenario = db.relationship('Scenario', back_populates='sponsor', lazy=True)
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id},{self.name}) '

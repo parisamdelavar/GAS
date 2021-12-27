@@ -7,7 +7,7 @@ class CreditType(BaseModel):
     __tablename__ = 'credit_types'
     name = db.Column(db.String(60), nullable=False)
     description = db.Column(db.String(300), nullable=True)
-    sponsors = db.relationship('Sponsor', back_populates='credit_type', lazy=True)
+    Sponsor = db.relationship('Sponsor', back_populates='credit_type', lazy=True)
 
 
 
