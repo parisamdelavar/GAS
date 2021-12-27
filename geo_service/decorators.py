@@ -19,5 +19,5 @@ def token_required(f):
             current_user = User.query.filter_by(public_id=data['public_id']).first()
         except:
             return jsonify({'message': 'Token is Invalid!.'}), 401
-        return f(current_user, *args, *kwargs)
+        return f(current_user, *args, **kwargs)
     return decorated
