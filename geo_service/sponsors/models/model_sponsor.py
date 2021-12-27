@@ -15,10 +15,12 @@ class Sponsor(BaseModel):
     email = db.Column(db.String(60), nullable=False)
     address = db.Column(db.String(200), nullable=True)
     public_id = db.Column(db.String, name="public_id", default=generate_uuid)
+    status = db.Column(db.Integer, default=1)
     credit_type_id = db.Column(db.Integer, db.ForeignKey('credit_types.id'))
     credit_type = db.relationship('CreditType', back_populates='sponsors')
     credit_balance = db.relationship('CreditBalance', back_populates='sponsor')
-    scenario = db.relationship('Scenario', back_populates='sponsor', lazy=True)
+    # scenario = db.relationship('Scenario', back_populates='sponsor', lazy=True)
+
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id},{self.name}) '
