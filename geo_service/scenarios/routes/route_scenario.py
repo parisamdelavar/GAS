@@ -24,11 +24,11 @@ def create_scenario(current_user):
     exist_scenario = model_scenario.Scenario.query.filter_by(name=data["name"]).first()
     if exist_scenario:
         return jsonify({'message': 'Scenario is already exist!'})
-    valid_sponsor = model_sponsor.Sponsor.query.filter_by(public_id=data["sponsorid"]).first()
+    valid_sponsor = model_sponsor.Sponsor.query.filter_by(public_id=data["sponsor_id"]).first()
     if not valid_sponsor:
         return jsonify({'message': 'SponsorId is not valid!'})
     # notification_type_default = modell_notification_type.Notificatio_Type.query.filter_by(id="1").first()
-    valid_notification_type = modell_notification_type.Notificatio_Type.query.filter_by(
+    valid_notification_type = modell_notification_type.Notification_Type.query.filter_by(
         id=data["notification_type_id"]).first()
     if not valid_notification_type:
         return jsonify({'message': 'NotificationTypeId is not valid!'})
@@ -36,7 +36,8 @@ def create_scenario(current_user):
         id=data["scenario_type_id"]).first()
     if not valid_scenario_type:
         return jsonify({'message': 'ScenarioTypeId is not valid!'})
-    scenario_data = model_scenario.Scenario(name=data['name'], sponsor_id=data['sponsor_id'],
+
+    scenario_data = model_scenario.Scenario(name=data['name'], priority=1, sponsor_id=data['sponsor_id'],
                                             description=data['description'], message=data['message'],
                                             scenario_type_id=data['scenario_type_id'], prefix=data['prefix'],
                                             create_date=datetime.now(), sender_number=data['sender_number'],
@@ -46,4 +47,4 @@ def create_scenario(current_user):
     db.session.add(scenario_data)
     db.session.commit()
 
-    return jsonify({'message': scenario_data.public_id})
+    return jsonify({'message': 'New scenario has been created', 'ScenarioId': str(scenario_data.public_id)})
