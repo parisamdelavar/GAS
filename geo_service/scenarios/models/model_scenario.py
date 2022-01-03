@@ -26,6 +26,7 @@ class Scenario(BaseModel):
     status = db.Column(db.Integer, nullable=False)
     delay = db.Column(db.BigInteger, nullable=False)
     location_limit = db.Column(db.Integer, nullable=False)
+    last_modify_date = db.Column(db.DateTime, nullable=False)
     #max_location = db.Column(db.Integer, nullable=False)
     sponsor_id = db.Column(db.Integer, db.ForeignKey('sponsors.public_id'))
     notification_type_id = db.Column(db.Integer, db.ForeignKey('notification_types.id'))

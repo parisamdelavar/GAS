@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 469900b4a858
+Revision ID: c78d32048f65
 Revises: 
-Create Date: 2021-12-26 17:38:39.742721
+Create Date: 2022-01-03 13:00:50.769361
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '469900b4a858'
+revision = 'c78d32048f65'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,6 +56,7 @@ def upgrade():
     sa.Column('email', sa.String(length=60), nullable=False),
     sa.Column('address', sa.String(length=200), nullable=True),
     sa.Column('public_id', sa.String(), nullable=True),
+    sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('credit_type_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['credit_type_id'], ['credit_types.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -93,6 +94,7 @@ def upgrade():
     sa.Column('status', sa.Integer(), nullable=False),
     sa.Column('delay', sa.BigInteger(), nullable=False),
     sa.Column('location_limit', sa.Integer(), nullable=False),
+    sa.Column('last_modify_date', sa.DateTime(), nullable=False),
     sa.Column('sponsor_id', sa.Integer(), nullable=True),
     sa.Column('notification_type_id', sa.Integer(), nullable=True),
     sa.Column('scenario_type_id', sa.Integer(), nullable=True),

@@ -8,6 +8,7 @@ import jwt
 import datetime
 from flask import current_app as app
 from geo_service.decorators import token_required
+from sqlalchemy import and_, or_, not_
 
 
 blueprint = Blueprint('sponsors', __name__)
@@ -23,15 +24,17 @@ blueprint = Blueprint('sponsors', __name__)
 def create_sponsor(current_user):
 
     data = request.get_json()
-    exist_sponsor = model_sponsor.Sponsor.query.filter_by(email=data["email"]).first()
+    exist_sponsor = model_sponsor.Sponsor.query.filter_by(email=data["email"]).filter_by(status=1).first()
     if exist_sponsor:
         return jsonify({'message': 'Sponsor is duplicate!'})
     credit_type_default = model_credit_type.CreditType.query.filter_by(name='unlimited').first()
     if not credit_type_default:
         credit_type_default = model_credit_type.CreditType(name='unlimited', description='unlimited')
-    sponsor = model_sponsor.Sponsor(name=data['name'], email=data['email'])
-    credit_type_default.sponsors = [sponsor]
-    db.session.add(credit_type_default)
+        db.session.add(credit_type_default)
+        db.session.flush()
+    sponsor = model_sponsor.Sponsor(name=data['name'], email=data['email'], credit_type_id=credit_type_default.id)
+    db.session.add(sponsor)
+    db.session.flush()
     db.session.commit()
     return jsonify({'message': 'new sponsor created!', 'sponsorId': str(sponsor.public_id)})
 
@@ -40,7 +43,7 @@ def create_sponsor(current_user):
 @token_required
 def get_all_sponsor(current_user):
 
-    sponsors = model_sponsor.Sponsor.query.all()
+    sponsors = model_sponsor.Sponsor.query.filter_by(status=1).all()
     output = []
     for sponsor in sponsors:
         sponsor_data = {}
@@ -56,7 +59,7 @@ def get_all_sponsor(current_user):
 @token_required
 def get_sponsor(current_user, id):
 
-    sponsor = model_sponsor.Sponsor.query.filter_by(public_id=id).first()
+    sponsor = model_sponsor.Sponsor.query.filter_by(public_id=id).filter_by(status=1).first()
     if not sponsor:
         return jsonify({'message': 'Sponsor is not Exist'})
     output = []
@@ -74,7 +77,7 @@ def get_sponsor(current_user, id):
 @token_required
 def update_sponsor(current_user, public_id):
     data = request.get_json()
-    sponsor = model_sponsor.Sponsor.query.filter_by(public_id=public_id).first()
+    sponsor = model_sponsor.Sponsor.query.filter_by(public_id=public_id).filter_by(status=1).first()
     if not sponsor:
         return jsonify({'message': 'Sponsor is not Exist'})
     if 'email' in data.keys():
@@ -100,3 +103,15 @@ def update_sponsor(current_user, public_id):
     db.session.commit()
     return jsonify({'sponsor': output})
     # get_sponsor( public_id)
+
+
+@blueprint.route('/sponsor/<string:public_id>', methods=['DELETE'])
+@token_required
+def delete_sponsor(current_user, public_id):
+    sponsor = model_sponsor.Sponsor.query.filter_by(public_id=public_id).filter_by(status=1).first()
+    if not sponsor:
+        return jsonify({'message': 'Sponsor is not Exist'})
+    sponsor.status = 0
+    db.session.commit()
+    return jsonify({'message': 'The Sponsor Was Deleted!'})
+
