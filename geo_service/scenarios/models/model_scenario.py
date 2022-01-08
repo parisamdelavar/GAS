@@ -28,7 +28,7 @@ class Scenario(BaseModel):
     location_limit = db.Column(db.Integer, nullable=False)
     last_modify_date = db.Column(db.DateTime, nullable=False)
     #max_location = db.Column(db.Integer, nullable=False)
-    sponsor_id = db.Column(db.Integer, db.ForeignKey('sponsors.public_id'))
+    sponsor_id = db.Column(db.Integer, db.ForeignKey('sponsors.id'))
     notification_type_id = db.Column(db.Integer, db.ForeignKey('notification_types.id'))
     scenario_type_id = db.Column(db.Integer, db.ForeignKey('scenario_types.id'))
     sponsor = db.relationship('Sponsor', back_populates='scenario')

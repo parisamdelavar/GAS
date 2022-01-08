@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c78d32048f65
+Revision ID: 9c57cbed20da
 Revises: 
-Create Date: 2022-01-03 13:00:50.769361
+Create Date: 2022-01-08 11:11:48.894193
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c78d32048f65'
+revision = '9c57cbed20da'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -76,6 +76,8 @@ def upgrade():
     sa.Column('sponsor_id', sa.Integer(), nullable=True),
     sa.Column('Scenario_id', sa.Integer(), nullable=False),
     sa.Column('Schedule_id', sa.Integer(), nullable=False),
+    sa.Column('sponsor_credit_type', sa.String(), nullable=True),
+    sa.Column('description', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['sponsor_id'], ['sponsors.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -100,7 +102,7 @@ def upgrade():
     sa.Column('scenario_type_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['notification_type_id'], ['notification_types.id'], ),
     sa.ForeignKeyConstraint(['scenario_type_id'], ['scenario_types.id'], ),
-    sa.ForeignKeyConstraint(['sponsor_id'], ['sponsors.public_id'], ),
+    sa.ForeignKeyConstraint(['sponsor_id'], ['sponsors.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('Locations',

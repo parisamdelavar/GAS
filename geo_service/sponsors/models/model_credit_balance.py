@@ -14,6 +14,8 @@ class CreditBalance(BaseModel):
     # sponsor = db.relationship('Sponsor', back_populates='credit_type', lazy=True)
     Scenario_id = db.Column(db.Integer, nullable=False)
     Schedule_id = db.Column(db.Integer, nullable=False)
+    sponsor_credit_type = db.Column(db.String)
+    description = db.Column(db.String)
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id}) '
