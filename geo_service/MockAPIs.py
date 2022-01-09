@@ -45,12 +45,12 @@ def get_subscribers(input):
 
 
 
-def get_geo_location(self, lac, cell):
+def get_geo_location( lac, cell):
     output = {'data': {
-              'REGION': '',
-              'PROVINCE': '',
-              'CITY': '',
-              'LAT': '',
-              'LNG': ''
+              'REGION': 'TEHRAN',
+              'PROVINCE': 'TEHRAN',
+              'CITY': 'TEHRAN',
+              'LAT': '12.545',
+              'LNG': '87.65'
     }}
     return jsonify(output)

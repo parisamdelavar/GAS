@@ -12,6 +12,11 @@ blueprint = Blueprint('scenario', __name__)
 @blueprint.route('/scenario', methods=['POST'])
 @token_required
 def create_scenario(current_user):
+    m = modell_notification_type.Notification_Type(name="sms")
+    s = model_scenario_type.Scenario_Type(name="input")
+    db.session.add(m)
+    db.session.add(s)
+    db.session.commit()
     data = request.get_json()
     exist_scenario = model_scenario.Scenario.query.filter_by(name=data["name"]).first()
     if exist_scenario:

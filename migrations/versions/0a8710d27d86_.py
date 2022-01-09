@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9c57cbed20da
+Revision ID: 0a8710d27d86
 Revises: 
-Create Date: 2022-01-08 11:11:48.894193
+Create Date: 2022-01-09 12:20:39.311021
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9c57cbed20da'
+revision = '0a8710d27d86'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -107,12 +107,15 @@ def upgrade():
     )
     op.create_table('Locations',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('cell_id', sa.String(length=60), nullable=False),
-    sa.Column('lac_id', sa.String(length=60), nullable=False),
+    sa.Column('cell_id', sa.String(length=60), nullable=True),
+    sa.Column('lac_id', sa.String(length=60), nullable=True),
+    sa.Column('lat', sa.Float(), nullable=True),
+    sa.Column('long', sa.Float(), nullable=True),
     sa.Column('status', sa.Boolean(), nullable=False),
     sa.Column('city', sa.String(length=60), nullable=True),
     sa.Column('province', sa.String(length=60), nullable=True),
     sa.Column('scenario_id', sa.Integer(), nullable=True),
+    sa.Column('type', sa.Enum('lac_cell', 'lat_long', name='location_type'), nullable=True),
     sa.ForeignKeyConstraint(['scenario_id'], ['scenarios.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

@@ -6,6 +6,7 @@ from geo_service.sponsors.routes.route_sponsor import blueprint as sponsors_blue
 from geo_service.scenarios.routes.route_scenario import blueprint as scenarios_blueprint
 from geo_service.sponsors.routes.roure_credit_type import blueprint as credit_type_blueprint
 from geo_service.scenarios.routes.route_calander import blueprint as calender_type_blueprint
+from geo_service.scenarios.routes.route_location import blueprint as location_blueprint
 import geo_service.exceptions as app_exception
 from flask_migrate import Migrate
 from . import db_connections
@@ -17,6 +18,7 @@ def register_blueprint(app):
     app.register_blueprint(scenarios_blueprint)
     app.register_blueprint(credit_type_blueprint)
     app.register_blueprint(calender_type_blueprint)
+    app.register_blueprint(location_blueprint)
 
 
 def register_error_handlers(app):

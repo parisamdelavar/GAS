@@ -25,10 +25,15 @@ def get_all_user(current_user):
     return jsonify({'users': output})
 
 @blueprint.route('/user', methods=['POST'])
-@token_required
-def create_user(current_user):
+# @token_required
+# def create_user(current_user):
+def create_user():
 
     data = request.get_json()
+    if 'username' not in data.keys():
+        return jsonify({'message': 'username is required!'})
+    if 'password' not in data.keys():
+        return jsonify({'message': 'password is required!'})
     exist_user = User.query.filter_by(username=data["username"]).first()
     if exist_user:
         return jsonify({'message': 'username is duplicate!'})
