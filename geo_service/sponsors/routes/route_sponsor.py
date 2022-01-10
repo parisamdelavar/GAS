@@ -56,7 +56,7 @@ def get_all_sponsor(current_user):
         sponsor_data['name'] = sponsor.name
         sponsor_data['email'] = sponsor.email
         sponsor_data['address'] = sponsor.address
-        sponsor_data['public_id'] = sponsor.public_id
+        sponsor_data['sponsor_id'] = sponsor.public_id
         sponsor_data['credit tpe'] = sponsor.credit_type.name
 
         output.append(sponsor_data)

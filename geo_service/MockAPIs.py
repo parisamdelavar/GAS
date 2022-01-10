@@ -44,7 +44,6 @@ def get_subscribers(input):
     return jsonify(output)
 
 
-
 def get_geo_location( lac, cell):
     output = {'data': {
               'REGION': 'TEHRAN',
@@ -54,3 +53,11 @@ def get_geo_location( lac, cell):
               'LNG': '87.65'
     }}
     return jsonify(output)
+
+
+def latlong_to_laccell(Lat_long_distance):
+    output =[]
+    output.append(['a', 'b'])
+    output.append(['c', 'd'])
+    return output
+

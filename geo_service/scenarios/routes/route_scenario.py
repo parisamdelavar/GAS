@@ -12,12 +12,33 @@ blueprint = Blueprint('scenario', __name__)
 @blueprint.route('/scenario', methods=['POST'])
 @token_required
 def create_scenario(current_user):
-    m = modell_notification_type.Notification_Type(name="sms")
-    s = model_scenario_type.Scenario_Type(name="input")
-    db.session.add(m)
-    db.session.add(s)
-    db.session.commit()
+    # m = modell_notification_type.Notification_Type(name="sms")
+    # s = model_scenario_type.Scenario_Type(name="input")
+    # db.session.add(m)
+    # db.session.add(s)
+    # db.session.commit()
     data = request.get_json()
+    if 'name' not in data.keys():
+        return jsonify({'message': 'name is required!'})
+    if 'sponsor_id' not in data.keys():
+        return jsonify({'message': 'sponsor_id is required!'})
+    if 'notification_type_id' not in data.keys():
+        return jsonify({'message': 'notification_type_id is required!'})
+    if 'scenario_type_id' not in data.keys():
+        return jsonify({'message': 'scenario_type_id is required!'})
+    if 'scenario_type_id' not in data.keys():
+        return jsonify({'message': 'scenario_type_id is required!'})
+    if 'message' not in data.keys():
+        return jsonify({'message': 'message is required!'})
+    if 'sender_number' not in data.keys():
+        return jsonify({'message': 'sender_number is required!'})
+    if 'sender_user' not in data.keys():
+        return jsonify({'message': 'sender_user is required!'})
+    if 'sender_pass' not in data.keys():
+        return jsonify({'message': 'sender_pass is required!'})
+    if 'delay' not in data.keys():
+        return jsonify({'message': 'delay is required!'})
+
     exist_scenario = model_scenario.Scenario.query.filter_by(name=data["name"]).first()
     if exist_scenario:
         return jsonify({'message': 'Scenario is already exist!'})
@@ -33,8 +54,8 @@ def create_scenario(current_user):
     if not valid_scenario_type:
         return jsonify({'message': 'ScenarioTypeId is not valid!'})
     scenario_data = model_scenario.Scenario(name=data['name'], priority=1, sponsor_id=valid_sponsor.id,
-                                            description=data['description'], message=data['message'],
-                                            scenario_type_id=data['scenario_type_id'], prefix=data['prefix'],
+                                            description=data.get('description'), message=data.get('message'),
+                                            scenario_type_id=data['scenario_type_id'], prefix=data.get('prefix'),
                                             create_date=datetime.now(), sender_number=data['sender_number'],
                                             sender_user=data['sender_user'], sender_pass=data['sender_pass'],
                                             status=1, delay=data['delay'], location_limit=1000,
