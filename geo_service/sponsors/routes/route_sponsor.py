@@ -125,7 +125,7 @@ def delete_sponsor(current_user, public_id):
         return jsonify({'message': 'Sponsor is not Exist'})
     sponsor.status = 0
     db.session.commit()
-    return jsonify({'message': 'The Sponsor Was Deleted!'})
+    return jsonify({'message': 'The Sponsor  Deleted!'})
 
 
 @blueprint.route('/sponsor/edit_type/<string:public_id>', methods=['POST'])

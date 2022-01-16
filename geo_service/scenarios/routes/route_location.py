@@ -51,13 +51,8 @@ def add_location(current_user):
         distance = data['Lat_long_distance'][2]
         Lat_long_distance = str(data['Lat_long_distance'][0]) + '-' + str(data['Lat_long_distance'][1])\
                             + '-' + str(data['Lat_long_distance'][2])
-
-
-
-
     #get info config_db
     for lac, ci in lac_cellId_list:
-        # response = requests.get(f"http://10.15.200.86:5003/api/v1/location_info/{lac}/{ci}",verify=False)
         response = get_geo_location(lac, ci)
         PROVINCE = json.loads(response.data)['data']['PROVINCE']
         CITY = json.loads(response.data)['data']['CITY']

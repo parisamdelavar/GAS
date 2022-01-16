@@ -13,3 +13,4 @@ class Notification_Type(BaseModel):
         return f' {self.__class__.__name__}({self.id},{self.name}) '
 
 
+

@@ -1,4 +1,5 @@
 from geo_service.database import BaseModel
+from geo_service.sponsors.models import model_sponsor
 from geo_service import db
 import uuid
 
@@ -18,7 +19,8 @@ class User(BaseModel):
     username = db.Column(db.String(60), nullable=False, unique=True)
     password = db.Column(db.String(60), nullable=False)
     public_id = db.Column(db.String, name="public_id", default=generate_uuid)
-    roles = db.relationship('Role',secondary=association_table)
+    roles = db.relationship('Role', secondary=association_table)
+    sponsor = db.relationship('Sponsor', back_populates='user', lazy=True)
 
     def __repr__(self):
         return f' {self.__class__.__name__}({self.id},{self.username}) '

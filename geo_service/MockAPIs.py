@@ -44,7 +44,9 @@ def get_subscribers(input):
     return jsonify(output)
 
 
-def get_geo_location( lac, cell):
+def get_geo_location(lac, cell):
+    # response = requests.get(f"http://10.15.200.86:5003/api/v1/location_info/{lac}/{ci}",verify=False)
+
     output = {'data': {
               'REGION': 'TEHRAN',
               'PROVINCE': 'TEHRAN',
@@ -60,4 +62,6 @@ def latlong_to_laccell(Lat_long_distance):
     output.append(['a', 'b'])
     output.append(['c', 'd'])
     return output
+
+
 
