@@ -6,12 +6,13 @@ import jwt
 import datetime
 from flask import current_app as app
 from geo_service.decorators import token_required
+from geo_service.sponsors import model_sponsor
 
 
 blueprint = Blueprint('users', __name__)
 
 
-@blueprint.route('/user', methods=['GET'])
+@blueprint.route('/alluser', methods=['GET'])
 @token_required
 def get_all_user(current_user):
     users = User.query.all()
@@ -48,6 +49,22 @@ def create_user():
     return jsonify({'message': 'new user created!'})
 
 
+@blueprint.route('/user/<string:username>', methods=['GET'])
+@token_required
+def get_user(current_user, username):
+    user = User.query.filter_by(username=username).first()
+    sponsors = model_sponsor.Sponsor.query.filter_by(user_id=user.id).all()
+
+    output = []
+    for sponsor in sponsors:
+        user_date = {}
+        # user_date['user'] = user.public_id
+        # user_date['username'] = user.username
+        user_date['sponcor_id'] = sponsor.public_id
+        output.append(user_date)
+
+    return jsonify({'users': user.public_id, 'username': user.username, 'sponsors': output})
+
 
 @blueprint.route('/login')
 def login():
@@ -55,7 +72,7 @@ def login():
     if not auth or not auth.username or not auth.password:
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
-    user = User.query.filter_by(username = auth.username).first()
+    user = User.query.filter_by(username=auth.username).first()
     if not user:
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
     if check_password_hash(user.password, auth.password):
@@ -63,6 +80,7 @@ def login():
         return jsonify({'token': token.decode()})
 
     return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
 
 
 
