@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: a4bfefecd5e3
+Revision ID: 6a9ec920e7f0
 Revises: 
-Create Date: 2022-01-10 14:03:18.249141
+Create Date: 2022-01-16 09:10:54.005561
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a4bfefecd5e3'
+revision = '6a9ec920e7f0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -64,7 +64,9 @@ def upgrade():
     sa.Column('public_id', sa.String(), nullable=True),
     sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('credit_type_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['credit_type_id'], ['credit_types.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_role_association',
@@ -117,11 +119,15 @@ def upgrade():
     sa.Column('lac_id', sa.String(length=60), nullable=True),
     sa.Column('lat', sa.Float(), nullable=True),
     sa.Column('long', sa.Float(), nullable=True),
+    sa.Column('distance', sa.Integer(), nullable=True),
     sa.Column('status', sa.Boolean(), nullable=False),
     sa.Column('city', sa.String(length=60), nullable=True),
     sa.Column('province', sa.String(length=60), nullable=True),
     sa.Column('scenario_id', sa.Integer(), nullable=True),
     sa.Column('location_type_id', sa.Integer(), nullable=True),
+    sa.Column('Lat_long_distance', sa.String(length=200), nullable=True),
+    sa.Column('area', sa.String(length=200), nullable=True),
+    sa.Column('formatted_Location', sa.String(length=200), nullable=True),
     sa.ForeignKeyConstraint(['location_type_id'], ['Location_types.id'], ),
     sa.ForeignKeyConstraint(['scenario_id'], ['scenarios.id'], ),
     sa.PrimaryKeyConstraint('id')

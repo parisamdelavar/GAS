@@ -22,7 +22,7 @@ class Sponsor(BaseModel):
     credit_type = db.relationship('CreditType', back_populates='sponsors')
     credit_balance = db.relationship('CreditBalance', back_populates='Sponsor')
     scenario = db.relationship('Scenario', back_populates='sponsor', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='sponsor')
 
     #credit_balance = db.relationship('CreditBalance', back_populates='sponsor')
