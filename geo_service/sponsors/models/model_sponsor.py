@@ -2,8 +2,9 @@ from geo_service.database import BaseModel
 from geo_service import db
 from . import model_credit_type
 from geo_service.scenarios.models import model_scenario
-from geo_service.users.models import User
+from geo_service.users import models
 import uuid
+
 
 
 def generate_uuid():
